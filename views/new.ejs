@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New Post</title>
+
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+  </head>
+
+  <body class="gradient_bg">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/blogs">Blog</a>
+      <!-- Navigation Toggler Button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navigation Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <!-- Profile Image and User Name -->
+          <li class="nav-item">
+            <div class="user_name"><%= user ? user.username : "Guest" %></div>
+          </li>
+          <!-- Add user profile image here -->
+          <li class="nav-item">
+            <img
+              src="/images/placeholder.jpg"
+              class="rounded-circle"
+              alt="Profile Image"
+            />
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- add new post container-->
+    <div class="container_new">
+      <h1>Create a New Post</h1>
+      <form action="/blogs" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="content">Content:</label>
+          <textarea
+            class="form-control"
+            id="content"
+            name="content"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="image">Image:</label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="image"
+            name="image"
+          />
+        </div>
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select class="form-control" id="category" name="category" required>
+            <option value="CSS">CSS</option>
+            <option value="HTML">HTML</option>
+            <option value="Express">Express</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <a href="/blogs" class="btn btn-secondary mt-3">Cancel</a>
+    </div>
+
+    <!-- Animation -->
+    <section>
+      <div class="air air1"></div>
+      <div class="air air2"></div>
+      <div class="air air3"></div>
+      <div class="air air4"></div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer mt-5 text-black fixed-bottom text-center">
+      <div class="col-md-6 text-center">
+        <p class="my-3">&copy; 2023 Your Blog. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

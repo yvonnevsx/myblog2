@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Home</title>
+
+    <!-- All links -->
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <!-- Link to Bootstrap CSS for styling and layout -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body class="blog_page">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/blogs">Blog</a>
+      <!-- Navigation Toggler Button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navigation Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <!-- Profile Image and User Name -->
+          <li class="nav-item">
+            <div class="user_name"><%= user ? user.username : "Guest" %></div>
+          </li>
+          <!-- Add user profile image here -->
+          <li class="nav-item">
+            <img
+              src="/images/placeholder.jpg"
+              class="rounded-circle"
+              alt="Profile Image"
+            />
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1 class="mt-5 text-center">Blog Posts</h1>
+      <a
+        href="/blogs/new"
+        id="button_new"
+        class="btn btn-primary mb-3 d-block mx-auto"
+        >Create New Post</a
+      >
+
+      <div class="row">
+        <!-- Loop through blog post categories -->
+        <% ['CSS', 'HTML', 'Express'].forEach(category => { %>
+        <div class="col rounded-col">
+          <h2 class="cat"><%= category %></h2>
+          <!-- Loop through posts in the current category -->
+          <% posts.filter(post => post.category === category).forEach(post => {
+          %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <!-- Display post image if available -->
+              <% if (post.image) { %>
+              <img
+                class="mx-auto d-block"
+                src="data:image/jpeg;base64,<%= post.image.toString('base64') %>"
+                class="card-img-top"
+                alt="Post Image"
+                style="max-width: 300px"
+              />
+              <% } %>
+              <p class="card-text"><%= post.content %></p>
+
+              <!-- Display the post date -->
+              <p class="card-text">
+                Posted on: <%= new Date(post.created_at).toLocaleString() %>
+              </p>
+
+              <!-- Form to delete post -->
+              <form action="/blogs/<%= post.id %>/remove" method="POST">
+                <button type="submit" class="btn btn-danger">Remove</button>
+              </form>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+
+    <footer class="footer mt-5 text-black fixed-bottom text-center">
+      <div class="col-md-6 text-center">
+        <p class="my-3">&copy; 2023 Your Blog. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
